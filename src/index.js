@@ -18,13 +18,13 @@ function countryInput(event) {
   //   return;
   // }
   if (!searchCountry) {
+    allClear();
     return;
   }
   fetchCountries(searchCountry)
     .then(data => {
       // чистка предыдущих данных
-      viewTextEl.innerHTML = '';
-      listEl.innerHTML = '';
+      allClear();
       // console.log(data);
       if (data.length === 0) {
         Notiflix.Notify.failure('Oops, there is no country with that name');
@@ -32,6 +32,7 @@ function countryInput(event) {
       }
 
       if (data.length > 10) {
+        allClear();
         Notiflix.Notify.info(
           'Too many matches found. Please enter a more specific name.'
         );
@@ -40,15 +41,13 @@ function countryInput(event) {
       if (data.length >= 2) {
         // надо реждерить карточки от 2 до 10
         createCards(data);
-
         return;
       }
       createOne(data[0]);
       // осталсЯ 1 варинт kartoshka(data[0]) и редрерит
     })
     .catch(error => {
-      viewTextEl.innerHTML = '';
-      listEl.innerHTML = '';
+      allClear();
       Notiflix.Notify.failure('Oops, there is no country with that name');
     });
 }
@@ -64,7 +63,11 @@ function createCards(itemArr) {
   });
   // console.log(elements);
   listEl.insertAdjacentHTML('beforeend', elements.join(''));
-
   // console.log('создаем много');
   // console.dir(itemArr);
+}
+
+function allClear() {
+  viewTextEl.innerHTML = '';
+  listEl.innerHTML = '';
 }
