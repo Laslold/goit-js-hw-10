@@ -9,7 +9,7 @@ export const one = obj => {
             <p class="country-info--field">Population: <span class="country-value">${population}</span></p>
             <p class="country-info--field">Languages: <span class="country-value">${Object.values(
               languages
-            )}</span></p>
+            ).join(', ')}</span></p>
     </div>`;
 };
 
